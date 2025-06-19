@@ -1,6 +1,7 @@
 package models;
 
 public class ModuleInfo {
+    //MR Manque le final
     private String nom;
     private Professeur professeur;
 
@@ -19,6 +20,7 @@ public class ModuleInfo {
 
     @Override
     public String toString() {
+        //MR si le professeur est null qu'est-ce qui se passe ?
         return nom + "avec" + professeur;
     }
 

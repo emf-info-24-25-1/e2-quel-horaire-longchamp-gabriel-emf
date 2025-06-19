@@ -7,6 +7,7 @@ import java.util.Locale;
 
 public class Bloc {
     public static final int NBRE_DEMI_JOURS_SEMAINE = 10;
+    //MR Les deux attributs peuvent être final
     private String nom;
     private ModuleInfo[] modules;
 
@@ -43,6 +44,7 @@ public class Bloc {
     }
 }
 
+    //MR Il faut parcourir tout le tableau et si un module est null alors on peut retourner false
     public boolean estTotalementPlanifie() {
         for (int i = 0; i < modules.length; i++) {
             if (modules[i] == null) {
@@ -57,6 +59,7 @@ public class Bloc {
     public boolean contientModule(ModuleInfo module) {
         boolean contientModule;
         for (int i = 0; i < modules.length; i++) {
+            //MR Ici c'est modules[i] l'élément courant et attention c'est un == et non un equals pour vérifier si c'est le même objet
             if (modules.getNom().equals(module)) {
                 contientModule = true;
             } else {
@@ -72,6 +75,7 @@ public class Bloc {
 
     @Override
     public String toString() {
+        //MR Format par défaut
         return "Bloc [nom=" + nom + "]";
     }
 
