@@ -1,43 +1,39 @@
 package models;
 
+import java.util.Arrays;
+
 public class Professeur {
-    //MR Manque les finals sur les deux premiers attributs
-    private String nom;
-    private String prenom;
+    private final String nom;
+    private final String prenom;
     private ModuleInfo[] modulesEnseignes;
 
     public Professeur(String nom, String prenom) {
         this.nom = nom;
         this.prenom = prenom;
-        //MR Il faut créer un tableau de taille de 0 sinon on pourra jamais rajouter des modules à l'interieur
-        this.modulesEnseignes = null;
+        this.modulesEnseignes = new ModuleInfo[0]; 
     }
 
     public boolean enseigneCeModule(String nomDuModule) {
-        boolean enseigneCeModule = false;
         for (int i = 0; i < modulesEnseignes.length; i++) {
-            //MR C'est modulesEnseignes[i].getNom()
-            if (modulesEnseignes[i] != null && modulesEnseignes[i].getModulesEnseignes().equals(nomDuModule)) {
-                enseigneCeModule = true;
-                //MR Un petit break ici
+            if (modulesEnseignes[i] != null &&
+                modulesEnseignes[i].getNom().equals(nomDuModule)) {
+                return true;
             }
         }
-        return enseigneCeModule;
+        return false;
     }
 
-    public void ajouterModuleEnseignes(ModuleInfo module) {
-        //MR Regarde à nouveau comment rajouter dasn un tableau dynamique
-        ModuleInfo[] modulesEnseignes2 = new ModuleInfo[modulesEnseignes.length + 1];
+    public void ajouterModuleEnseigne(ModuleInfo module) {
+        ModuleInfo[] nouveauxModules = new ModuleInfo[modulesEnseignes.length + 1];
         for (int i = 0; i < modulesEnseignes.length; i++) {
-            modulesEnseignes[i] = modulesEnseignes2[i];
+            nouveauxModules[i] = modulesEnseignes[i];
         }
+        nouveauxModules[nouveauxModules.length - 1] = module;
+        modulesEnseignes = nouveauxModules;
     }
 
     public void viderModules() {
-        //MR Le tableau doit être de taille 0
-        for (int i = 0; i < modulesEnseignes.length; i++) {
-            modulesEnseignes[i] = null;
-        }
+        modulesEnseignes = new ModuleInfo[0]; 
     }
 
     public String getNom() {
@@ -54,8 +50,10 @@ public class Professeur {
 
     @Override
     public String toString() {
-        //MR toString non conforme qui est celui de base autogénéré
-        return "Professeur [nom=" + nom + ", prenom=" + prenom + ", modulesEnseignes=" + modulesEnseignes + "]";
+        return "Professeur [nom=" + nom + ", prenom=" + prenom + ", modulesEnseignes="
+                + Arrays.toString(modulesEnseignes) + "]";
     }
 
-}
+  
+    }
+

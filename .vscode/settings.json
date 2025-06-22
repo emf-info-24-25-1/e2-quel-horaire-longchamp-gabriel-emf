@@ -1,6 +1,7 @@
 {
     "java.project.sourcePaths": [
-        "src"
+        "src",
+        "models/app"
     ],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [

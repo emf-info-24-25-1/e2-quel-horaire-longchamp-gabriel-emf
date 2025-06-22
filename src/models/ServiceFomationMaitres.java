@@ -1,27 +1,32 @@
 package models;
 
 public class ServiceFomationMaitres {
-    public static final int MIN = 0;
-    public static final int MAX = 11;
-
     public void attribuerModules(Professeur[] professeurs, ModuleInfo[] modules) {
-        int index = (int) (Math.random() * (MAX - MIN + 1)) + MIN;
         for (int i = 0; i < modules.length; i++) {
-            if (modules.enseigneCeModule() == false) {
-                continue;
-            } else {
-                modules.ajouterModuleEnseignes();
+            ModuleInfo module = modules[i];
+            for (int j = 0; j < professeurs.length; j++) {
+                Professeur prof = professeurs[j];
+                if (!prof.enseigneCeModule(module.getNom())) {
+                    prof.ajouterModuleEnseigne(module);
+                    break;
+                }
             }
         }
     }
 
-    public boolean tousModulesCouverts(Professeur[] profs, moduleInfo[] modules){
-       boolean moduleCouvert = true;
-  for (int i = 0; i < modules.length; i++) {
-    if (enseigneCeModule() == false) {
-        moduleCouvert = false;
+    public boolean tousModulesCouverts(Professeur[] profs, ModuleInfo[] modules) {
+        for (int i = 0; i < modules.length; i++) {
+            boolean estCouverts = false;
+            for (int j = 0; j < profs.length; j++) {
+                if (profs[j].enseigneCeModule(modules[i].getNom())) {
+                    estCouverts = true;
+                    break;
+                }
+            }
+            if (!estCouverts) {
+                return false;
+            }
+        }
+        return true;
     }
-  }
-    return moduleCouvert;
-    }
-  }
+}
